@@ -173,8 +173,8 @@ const operators = {
     elasticSearchQueryType: "range",
   },
   like: {
-    label: "Like",
-    labelForFormat: "Like",
+    label: "Contains",
+    labelForFormat: "Contains",
     reversedOp: "not_like",
     sqlOp: "LIKE",
     sqlFormatOp: (field, op, values, valueSrc, valueType, opDef, operatorOptions) => {
@@ -191,9 +191,9 @@ const operators = {
   },
   not_like: {
     isNotOp: true,
-    label: "Not like",
+    label: "Not Contains",
     reversedOp: "like",
-    labelForFormat: "Not Like",
+    labelForFormat: "Not Contains",
     sqlOp: "NOT LIKE",
     sqlFormatOp: (field, op, values, valueSrc, valueType, opDef, operatorOptions) => {
       if (valueSrc == "value") {
@@ -574,6 +574,8 @@ const widgets = {
     valuePlaceholder: "Select value",
     formatValue: (val, fieldDef, wgtDef, isForDisplay) => {
       let valLabel = getTitleInListValues(fieldDef.fieldSettings.listValues || fieldDef.asyncListValues, val);
+      if (valLabel === undefined && fieldDef.fieldSettings.allowCustomValues)
+        valLabel = val;
       return isForDisplay ? stringifyForDisplay(valLabel) : JSON.stringify(val);
     },
     sqlFormatValue: (val, fieldDef, wgtDef, op, opDef) => {

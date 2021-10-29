@@ -41,7 +41,13 @@ export default class SelectWidget extends PureComponent {
   }
 
   handleChange = (val) => {
-    this.props.setValue(val);
+    if (val.length != undefined && val.length > 0){
+      this.props.setValue(val[0]);
+    }
+    else
+    {
+        this.props.setValue(undefined);
+    }
   }
 
   filterOption = (input, option) => {
@@ -55,7 +61,7 @@ export default class SelectWidget extends PureComponent {
     const placeholderWidth = calcTextWidth(placeholder);
     const dropdownWidth = this.optionsMaxWidth + SELECT_WIDTH_OFFSET_RIGHT;
     const width = value ? dropdownWidth : placeholderWidth + SELECT_WIDTH_OFFSET_RIGHT;
-    const aValue = value != undefined ? value+"" : undefined;
+    const aValue = value != undefined ? [value+""] : undefined;
     const customSelectProps = omit(customProps, [""]);
 
     return (
@@ -69,6 +75,7 @@ export default class SelectWidget extends PureComponent {
         value={aValue}
         onChange={this.handleChange}
         filterOption={this.filterOption}
+        mode="tags"
         {...customSelectProps}
       >{this.options}
       </Select>

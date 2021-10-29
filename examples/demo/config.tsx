@@ -344,7 +344,8 @@ export default (skin: string) => {
         vendor: {
           type: "select",
           fieldSettings: {
-            listValues: ["Ford", "Toyota", "Tesla"],
+            listValues: ["Ford1", "Toyota", "Tesla"],
+            allowCustomValues: true,
           },
           valueSources: ["value"],
         },
