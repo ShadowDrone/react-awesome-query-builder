@@ -654,9 +654,9 @@ export const with_group_array = (BasicConfig) => ({
 
       subfields: {
         vendor: {
-          type: "select",
+          type: "text",
           fieldSettings: {
-            listValues: ["Ford", "Toyota", "Tesla"],
+            listValues: ["Ford2", "Toyota", "Tesla"],
           },
           valueSources: ["value"],
         },
@@ -699,7 +699,7 @@ export const with_group_array_custom_operator = (BasicConfig) => ({
         vendor: {
           type: "select",
           fieldSettings: {
-            listValues: ["Ford", "Toyota", "Tesla"],
+            listValues: ["Ford3", "Toyota", "Tesla"],
           },
           valueSources: ["value"],
         },
