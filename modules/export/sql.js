@@ -208,6 +208,8 @@ const formatField = (meta, config, field) => {
   const formatFieldFn = config.settings.formatField || defaultSettings.formatField;
   const fieldName = formatFieldName(field, config, meta);
   const formattedField = formatFieldFn(fieldName, fieldParts, fieldFullLabel, fieldDefinition, config);
+  if (fieldDefinition && (fieldDefinition.type === 'text' || fieldDefinition.type === 'select'))
+    return 'lower('+formattedField+')';
   return formattedField;
 };
 

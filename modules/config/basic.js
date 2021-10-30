@@ -498,10 +498,12 @@ const widgets = {
     formatValue: (val, fieldDef, wgtDef, isForDisplay) => {
       return isForDisplay ? stringifyForDisplay(val) : JSON.stringify(val);
     },
-    sqlFormatValue: (val, fieldDef, wgtDef, op, opDef) => {
+    sqlFormatValue: (val, fieldDef, wgtDef, op, opDef, forceTolower = true) => {
       if (opDef.sqlOp == "LIKE" || opDef.sqlOp == "NOT LIKE") {
-        return SqlString.escapeLike(val, op != "starts_with", op != "ends_with");
+        return SqlString.escapeLike(val, op != "starts_with", op != "ends_with", forceTolower);
       } else {
+        if (forceTolower)
+          return 'lower('+SqlString.escape(val)+')';
         return SqlString.escape(val);
       }
     },
@@ -518,10 +520,12 @@ const widgets = {
     formatValue: (val, fieldDef, wgtDef, isForDisplay) => {
       return isForDisplay ? stringifyForDisplay(val) : JSON.stringify(val);
     },
-    sqlFormatValue: (val, fieldDef, wgtDef, op, opDef) => {
+    sqlFormatValue: (val, fieldDef, wgtDef, op, opDef, forceTolower = true) => {
       if (opDef.sqlOp == "LIKE" || opDef.sqlOp == "NOT LIKE") {
-        return SqlString.escapeLike(val, op != "starts_with", op != "ends_with");
+        return SqlString.escapeLike(val, op != "starts_with", op != "ends_with", forceTolower);
       } else {
+        if (forceTolower)
+          return 'lower('+SqlString.escape(val)+')';
         return SqlString.escape(val);
       }
     },
@@ -578,7 +582,9 @@ const widgets = {
         valLabel = val;
       return isForDisplay ? stringifyForDisplay(valLabel) : JSON.stringify(val);
     },
-    sqlFormatValue: (val, fieldDef, wgtDef, op, opDef) => {
+    sqlFormatValue: (val, fieldDef, wgtDef, op, opDef, forceToLower = true) => {
+      if (forceToLower)
+        return 'lower('+SqlString.escape(val)+')';
       return SqlString.escape(val);
     },
     toJS: (val, fieldSettings) => (val),
