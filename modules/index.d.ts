@@ -950,6 +950,7 @@ export interface MaterialWidgets {
 /////////////////
 
 export const Utils: Utils;
+export const Actions: Actions;
 export const Query: Query;
 export const Builder: Builder;
 export const BasicConfig: BasicConfig;
