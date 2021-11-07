@@ -1,6 +1,6 @@
 {
   "name": "@shadowdrone/react-awesome-query-builder",
-  "version": "4.6.2",
+  "version": "4.6.3",
   "description": "Query builder based on react-awesome-query-builder with small fixes",
   "main": "lib",
   "types": "modules/index.d.ts",
