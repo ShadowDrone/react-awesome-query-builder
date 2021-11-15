@@ -289,7 +289,7 @@ const operators = {
   is_empty: {
     label: "Is empty",
     labelForFormat: "IS EMPTY",
-    sqlOp: "IS EMPTY",
+    sqlOp: "IS NULL",
     cardinality: 0,
     reversedOp: "is_not_empty",
     formatOp: (field, op, value, valueSrc, valueType, opDef, operatorOptions, isForDisplay) => {
@@ -302,7 +302,7 @@ const operators = {
     isNotOp: true,
     label: "Is not empty",
     labelForFormat: "IS NOT EMPTY",
-    sqlOp: "IS NOT EMPTY",
+    sqlOp: "IS NOT NULL",
     cardinality: 0,
     reversedOp: "is_empty",
     formatOp: (field, op, value, valueSrc, valueType, opDef, operatorOptions, isForDisplay) => {
