@@ -43,14 +43,14 @@ const conjunctions = {
       if (complexQuery.startsWith("lower({#") || complexQuery.startsWith("{#")){
         let complexQueryField = "";
         if (complexQuery.startsWith("lower({#")){
-          complexQueryField = complexQuery.substr(6, complexQuery.indexOf("}")+2);
+          complexQueryField = complexQuery.substring(6, complexQuery.indexOf("}")+1);
         }
         else {
-          complexQueryField = complexQuery.substr(0, complexQuery.indexOf("}")+2);
+          complexQueryField = complexQuery.substring(0, complexQuery.indexOf("}")+1);
         }
           
         return children.size > 1
-        ? (not ? "NOT " : "") + "(" + (complexQueryField + ".begin") + children.join(" " + "AND" + " ") + (complexQueryField + ".emd")+")"
+        ? (not ? "NOT " : "") + "(" + (complexQueryField + ".begin") + children.join(" " + "AND" + " ") + (complexQueryField + ".end")+")"
         : (not ? "NOT (" : "") + (complexQueryField + ".begin") + children.first() + (not ? ")" : "") +  (complexQueryField + ".end");  
       }
       return children.size > 1
