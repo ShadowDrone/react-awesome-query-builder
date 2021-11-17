@@ -39,6 +39,20 @@ const conjunctions = {
         : (not ? "NOT (" : "") + children.first() + (not ? ")" : "");
     },
     sqlFormatConj: (children, conj, not) => {
+      let complexQuery = children.first();
+      if (complexQuery.startsWith("lower({#") || complexQuery.startsWith("{#")){
+        let complexQueryField = "";
+        if (complexQuery.startsWith("lower({#")){
+          complexQueryField = complexQuery.substr(6, complexQuery.indexOf("}")+2);
+        }
+        else {
+          complexQueryField = complexQuery.substr(0, complexQuery.indexOf("}")+2);
+        }
+          
+        return children.size > 1
+        ? (not ? "NOT " : "") + "(" + (complexQueryField + ".begin") + children.join(" " + "AND" + " ") + (complexQueryField + ".emd")+")"
+        : (not ? "NOT (" : "") + (complexQueryField + ".begin") + children.first() + (not ? ")" : "") +  (complexQueryField + ".end");  
+      }
       return children.size > 1
         ? (not ? "NOT " : "") + "(" + children.join(" " + "AND" + " ") + ")"
         : (not ? "NOT (" : "") + children.first() + (not ? ")" : "");
