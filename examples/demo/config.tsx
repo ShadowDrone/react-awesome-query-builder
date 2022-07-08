@@ -315,6 +315,58 @@ export default (skin: string) => {
         }
       }
     },
+    complexTest: {
+      label: "Complex T",
+      fieldName: "{#ComplexT}",
+      type: "text",
+      fieldSettings: {
+        listValues: ["co1", "co2", "co3"],
+      },
+      
+      valueSources: ["value"],
+      
+      operators: [
+        // w/ operand - count
+        "like"
+      ],
+    },
+    complexTest2: {
+      label: "Complex T2",
+      fieldName: "{#ComplexT2}",
+      type: "text",
+      fieldSettings: {
+        listValues: ["co1", "co2", "co3"],
+      },
+      
+      valueSources: ["value"],
+      
+      operators: [
+        // w/ operand - count
+        "like"
+      ],
+    },
+    complexTest3: {
+      label: "Complex T3",
+      fieldName: "{#ComplexT3}",
+      type: "!group",
+      subfields: {
+        product: {
+          type: "select",
+          fieldSettings: {
+            listValues: ["abc", "def", "xyz"],
+          },
+          valueSources: ["value"],
+        },
+        score: {
+          type: "number",
+          fieldSettings: {
+            min: 0,
+            max: 100,
+          },
+          valueSources: ["value"],
+        }
+      }
+    },
     cars: {
       label: "Cars",
       type: "!group",

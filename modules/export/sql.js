@@ -65,8 +65,10 @@ const formatGroup = (item, config, meta) => {
   if (!conjunction)
     conjunction = defaultConjunction(config);
   const conjunctionDefinition = config.conjunctions[conjunction];
+  //console.log("formatGroup Item, config and meta list")
+  //console.log([item, config, meta, list])
 
-  return conjunctionDefinition.sqlFormatConj(list, conjunction, not);
+  return conjunctionDefinition.sqlFormatConj(list, conjunction, not, type);
 };
 
 

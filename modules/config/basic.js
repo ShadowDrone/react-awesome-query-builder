@@ -38,9 +38,13 @@ const conjunctions = {
         ? (not ? "NOT " : "") + "(" + children.join(" " + (isForDisplay ? "AND" : "&&") + " ") + ")"
         : (not ? "NOT (" : "") + children.first() + (not ? ")" : "");
     },
-    sqlFormatConj: (children, conj, not) => {
+    sqlFormatConj: (children, conj, not, type) => {
+      //console.log("childreen AND "+children.size)
+      //console.log(children)
+      let isRuleGroup = type === "rule_group";
+      //console.log("Type "+type)
       let complexQuery = children.first();
-      if (complexQuery.startsWith("lower({#") || complexQuery.startsWith("{#")){
+      if (isRuleGroup && (complexQuery.startsWith("lower({#") || complexQuery.startsWith("{#"))){
         let complexQueryField = "";
         if (complexQuery.startsWith("lower({#")){
           complexQueryField = complexQuery.substring(6, complexQuery.indexOf("}")+1);
@@ -54,9 +58,9 @@ const conjunctions = {
         : (not ? "NOT (" : "") + (complexQueryField + ".begin") + children.first() + (not ? ")" : "") +  (complexQueryField + ".end");  
       }
       return children.size > 1
-        ? (not ? "NOT " : "") + "(" + children.join(" " + "AND" + " ") + ")"
-        : (not ? "NOT (" : "") + children.first() + (not ? ")" : "");
-    },
+        ? (not ? "NOT " : "") + "(" + children.map(c => SqlString.wrapIfComplexQuery(c)).join(" " + "AND" + " ") +")"
+        : (not ? "NOT (" : "") + SqlString.wrapIfComplexQuery(children.first()) + (not ? ")" : "");
+    }
   },
   OR: {
     label: "Or",
@@ -67,9 +71,13 @@ const conjunctions = {
         ? (not ? "NOT " : "") + "(" + children.join(" " + (isForDisplay ? "OR" : "||") + " ") + ")"
         : (not ? "NOT (" : "") + children.first() + (not ? ")" : "");
     },
-    sqlFormatConj: (children, conj, not) => {
+    sqlFormatConj: (children, conj, not, type) => {
+      //console.log("childreen AND "+children.size)
+      //console.log(children)
+      let isRuleGroup = type === "rule_group";
+      //console.log("Type "+type)
       let complexQuery = children.first();
-      if (complexQuery.startsWith("lower({#") || complexQuery.startsWith("{#")){
+      if (isRuleGroup && (complexQuery.startsWith("lower({#") || complexQuery.startsWith("{#"))){
         let complexQueryField = "";
         if (complexQuery.startsWith("lower({#")){
           complexQueryField = complexQuery.substring(6, complexQuery.indexOf("}")+1);
@@ -83,8 +91,8 @@ const conjunctions = {
         : (not ? "NOT (" : "") + (complexQueryField + ".begin") + children.first() + (not ? ")" : "") +  (complexQueryField + ".end");  
       }
       return children.size > 1
-        ? (not ? "NOT " : "") + "(" + children.join(" " + "OR" + " ") + ")"
-        : (not ? "NOT (" : "") + children.first() + (not ? ")" : "");
+        ? (not ? "NOT " : "") + "(" + children.map(c => SqlString.wrapIfComplexQuery(c)).join(" " + "OR" + " ") +")"
+        : (not ? "NOT (" : "") + SqlString.wrapIfComplexQuery(children.first()) + (not ? ")" : "");
     },
   },
 };

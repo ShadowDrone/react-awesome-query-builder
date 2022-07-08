@@ -24,4 +24,25 @@ SqlString.escapeLike = (val, any_start = true, any_end = true, force_to_lower = 
   return res;
 };
 
+SqlString.wrapIfComplexQuery = (queryItem) => {
+  
+  //console.log("query:"+queryItem)
+  //console.log(queryItem);
+  if (queryItem.startsWith("lower({#") || queryItem.startsWith("{#")){
+    let complexQueryField = ""; 
+    if (queryItem.startsWith("lower({#")){
+      //console.log("starts with lower")
+      complexQueryField = queryItem.substring(6, queryItem.indexOf("}")+1);
+    }
+    else {
+      //console.log("not lower")
+      complexQueryField = queryItem.substring(0, queryItem.indexOf("}")+1);
+    }
+    //console.log("query wrapped:"+(complexQueryField + ".begin") + queryItem + (complexQueryField + ".end"))
+    return (complexQueryField + ".begin") + queryItem + (complexQueryField + ".end")
+  }
+  //console.log("query no wrapped:"+queryItem)
+  return queryItem;
+};
+
 export {SqlString};

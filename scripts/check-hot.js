@@ -1,7 +1,7 @@
 const { spawn, execSync } = require('child_process');
 const COMPILE_TIMEOUT = 50*1000; // 50 s
 const EXIT_TIMEOUT = 1*1000; // 1 s
-const WEBPACK_PORT = 3001;
+const WEBPACK_PORT = 3002;
 
 let prcOutBuf = Buffer.alloc(0);
 let prcErrBuf = Buffer.alloc(0);

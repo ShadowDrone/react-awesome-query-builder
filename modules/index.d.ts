@@ -317,7 +317,7 @@ export type Widgets = TypedMap<Widget>;
 /////////////////
 
 type FormatConj = (children: ImmutableList<string>, conj: string, not: boolean, isForDisplay?: boolean) => string;
-type SqlFormatConj = (children: ImmutableList<string>, conj: string, not: boolean) => string;
+type SqlFormatConj = (children: ImmutableList<string>, conj: string, not: boolean, type: string) => string;
 
 export interface Conjunction {
   label: string,
