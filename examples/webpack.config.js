@@ -5,7 +5,7 @@ const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const MODE = process.env.NODE_ENV || "development";
-const PORT = 3002;
+const PORT = 3001;
 const lib_name = 'react-awesome-query-builder';
 const isProd = (MODE != "development");
 const isDev = (MODE == "development");
