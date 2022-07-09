@@ -40,10 +40,14 @@ const conjunctions = {
     },
     sqlFormatConj: (children, conj, not, type) => {
       //console.log("childreen AND "+children.size)
+      //children.forEach(element => {
+      //  console.log(element+"")
+      //});
       //console.log(children)
       let isRuleGroup = type === "rule_group";
       //console.log("Type "+type)
       let complexQuery = children.first();
+      //console.log("isRuleGroup "+isRuleGroup)
       if (isRuleGroup && (complexQuery.startsWith("lower({#") || complexQuery.startsWith("{#"))){
         let complexQueryField = "";
         if (complexQuery.startsWith("lower({#")){
@@ -56,6 +60,11 @@ const conjunctions = {
         return children.size > 1
         ? (not ? "NOT " : "") + "(" + (complexQueryField + ".begin") + children.join(" " + "AND" + " ") + (complexQueryField + ".end")+")"
         : (not ? "NOT (" : "") + (complexQueryField + ".begin") + children.first() + (not ? ")" : "") +  (complexQueryField + ".end");  
+      }
+      if (type === "group" && (complexQuery.startsWith("{#"))){
+        return children.size > 1
+        ? (not ? "NOT " : "") + "(" + children.join(" " + "AND" + " ") +")"
+        : (not ? "NOT (" : "") + children.first() + (not ? ")" : ""); 
       }
       return children.size > 1
         ? (not ? "NOT " : "") + "(" + children.map(c => SqlString.wrapIfComplexQuery(c)).join(" " + "AND" + " ") +")"
@@ -89,6 +98,11 @@ const conjunctions = {
         return children.size > 1
         ? (not ? "NOT " : "") + "(" + (complexQueryField + ".begin") + children.join(" " + "OR" + " ") + (complexQueryField + ".end")+")"
         : (not ? "NOT (" : "") + (complexQueryField + ".begin") + children.first() + (not ? ")" : "") +  (complexQueryField + ".end");  
+      }
+      if (type === "group" && (complexQuery.startsWith("{#"))){
+        return children.size > 1
+        ? (not ? "NOT " : "") + "(" + children.join(" " + "OR" + " ") +")"
+        : (not ? "NOT (" : "") + children.first() + (not ? ")" : ""); 
       }
       return children.size > 1
         ? (not ? "NOT " : "") + "(" + children.map(c => SqlString.wrapIfComplexQuery(c)).join(" " + "OR" + " ") +")"
