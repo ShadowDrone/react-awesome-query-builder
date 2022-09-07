@@ -71,7 +71,7 @@ const formatGroup = (item, config, meta) => {
   let ret= conjunctionDefinition.sqlFormatConj(list, conjunction, not, type);
 
   if (groupFieldDef && groupFieldDef.sorroundingTags)
-    ret = groupFieldDef.sorroundingTags+'.begin'+ret+groupFieldDef.sorroundingTags+'.end';
+    ret = SqlString.sorroundWith(ret,groupFieldDef.sorroundingTags);
   return ret;
 };
 
@@ -169,7 +169,7 @@ const formatRule = (item, config, meta) => {
     ret = config.settings.sqlFormatReverse(ret, operator, reversedOp, operatorDefinition, revOperatorDefinition);
   }
   if (fieldDefinition && fieldDefinition.sorroundingTags)
-    ret = fieldDefinition.sorroundingTags+'.begin'+ret+fieldDefinition.sorroundingTags+'.end';
+    ret = SqlString.sorroundWith(ret,fieldDefinition.sorroundingTags);
   return ret;
 };
 

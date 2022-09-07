@@ -45,4 +45,14 @@ SqlString.wrapIfComplexQuery = (queryItem) => {
   return queryItem;
 };
 
+SqlString.sorroundWith = (ruleStr, sorroundingTags) => {
+  let tagBegin = sorroundingTags+".begin";
+  let tagEnd = sorroundingTags+".end";
+  if (ruleStr.startsWith("(") && ruleStr.endsWith(")")){
+    return "("+tagBegin+ruleStr.substring(1,ruleStr.length-1)+tagEnd+")";
+  }
+  //console.log("query no wrapped:"+queryItem)
+  return tagBegin+ruleStr+tagEnd;
+};
+
 export {SqlString};
