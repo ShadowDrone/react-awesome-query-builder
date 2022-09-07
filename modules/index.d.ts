@@ -571,6 +571,7 @@ interface ValueField extends BaseField {
   //obsolete - moved to FieldSettings
   listValues?: ListValues,
   allowCustomValues?: boolean,
+  sorroundingTags?: string
 }
 interface SimpleField extends ValueField {
   label2?: string,

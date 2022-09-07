@@ -329,6 +329,7 @@ export default (skin: string) => {
         // w/ operand - count
         "like"
       ],
+      sorroundingTags:"{#Changos1}"
     },
     complexTest2: {
       label: "Complex T2",
@@ -344,6 +345,7 @@ export default (skin: string) => {
         // w/ operand - count
         "like"
       ],
+      sorroundingTags:"{#Changos2}"
     },
     complexTest3: {
       label: "Complex T3",
@@ -365,7 +367,8 @@ export default (skin: string) => {
           },
           valueSources: ["value"],
         }
-      }
+      },
+      sorroundingTags:"{#Changos3}"
     },
     cars: {
       label: "Cars",

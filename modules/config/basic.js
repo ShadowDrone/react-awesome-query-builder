@@ -37,18 +37,22 @@ const conjunctions = {
       return children.size > 1
         ? (not ? "NOT " : "") + "(" + children.join(" " + (isForDisplay ? "AND" : "&&") + " ") + ")"
         : (not ? "NOT (" : "") + children.first() + (not ? ")" : "");
-    },
+    },//ACA5
     sqlFormatConj: (children, conj, not, type) => {
       //console.log("childreen AND "+children.size)
       //children.forEach(element => {
       //  console.log(element+"")
       //});
+      //console.log("sqlFormatConj: conjuntion")
+      //console.log(conj)
+
+      //console.log("sqlFormatConj: cvhildren")
       //console.log(children)
       let isRuleGroup = type === "rule_group";
-      //console.log("Type "+type)
+      //console.log("sqlFormatConj: Type "+type)
       let complexQuery = children.first();
-      //console.log("isRuleGroup "+isRuleGroup)
-      if (isRuleGroup && (complexQuery.startsWith("lower({#") || complexQuery.startsWith("{#"))){
+      //console.log("sqlFormatConj: isRuleGroup "+isRuleGroup)
+      /*if (isRuleGroup && (complexQuery.startsWith("lower({#") || complexQuery.startsWith("{#"))){
         let complexQueryField = "";
         if (complexQuery.startsWith("lower({#")){
           complexQueryField = complexQuery.substring(6, complexQuery.indexOf("}")+1);
@@ -65,7 +69,7 @@ const conjunctions = {
         return children.size > 1
         ? (not ? "NOT " : "") + "(" + children.join(" " + "AND" + " ") +")"
         : (not ? "NOT (" : "") + children.first() + (not ? ")" : ""); 
-      }
+      }*/
       return children.size > 1
         ? (not ? "NOT " : "") + "(" + children.map(c => SqlString.wrapIfComplexQuery(c)).join(" " + "AND" + " ") +")"
         : (not ? "NOT (" : "") + SqlString.wrapIfComplexQuery(children.first()) + (not ? ")" : "");
@@ -79,14 +83,14 @@ const conjunctions = {
       return children.size > 1
         ? (not ? "NOT " : "") + "(" + children.join(" " + (isForDisplay ? "OR" : "||") + " ") + ")"
         : (not ? "NOT (" : "") + children.first() + (not ? ")" : "");
-    },
+    },//ACA6
     sqlFormatConj: (children, conj, not, type) => {
       //console.log("childreen AND "+children.size)
       //console.log(children)
       let isRuleGroup = type === "rule_group";
       //console.log("Type "+type)
       let complexQuery = children.first();
-      if (isRuleGroup && (complexQuery.startsWith("lower({#") || complexQuery.startsWith("{#"))){
+      /*if (isRuleGroup && (complexQuery.startsWith("lower({#") || complexQuery.startsWith("{#"))){
         let complexQueryField = "";
         if (complexQuery.startsWith("lower({#")){
           complexQueryField = complexQuery.substring(6, complexQuery.indexOf("}")+1);
@@ -103,7 +107,7 @@ const conjunctions = {
         return children.size > 1
         ? (not ? "NOT " : "") + "(" + children.join(" " + "OR" + " ") +")"
         : (not ? "NOT (" : "") + children.first() + (not ? ")" : ""); 
-      }
+      }*/
       return children.size > 1
         ? (not ? "NOT " : "") + "(" + children.map(c => SqlString.wrapIfComplexQuery(c)).join(" " + "OR" + " ") +")"
         : (not ? "NOT (" : "") + SqlString.wrapIfComplexQuery(children.first()) + (not ? ")" : "");

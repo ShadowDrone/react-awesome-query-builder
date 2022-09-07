@@ -65,13 +65,17 @@ const formatGroup = (item, config, meta) => {
   if (!conjunction)
     conjunction = defaultConjunction(config);
   const conjunctionDefinition = config.conjunctions[conjunction];
-  //console.log("formatGroup Item, config and meta list type")
-  //console.log([item, config, meta, list, type])
+  //console.log("formatGroup Item, config , meta, list,  type, properties")
+  //console.log([item, config, meta, list, type, properties])
 
-  return conjunctionDefinition.sqlFormatConj(list, conjunction, not, type);
+  let ret= conjunctionDefinition.sqlFormatConj(list, conjunction, not, type);
+
+  if (groupFieldDef && groupFieldDef.sorroundingTags)
+    ret = groupFieldDef.sorroundingTags+'.begin'+ret+groupFieldDef.sorroundingTags+'.end';
+  return ret;
 };
 
-
+//ACA4 Parece que aca va la joya
 const formatRule = (item, config, meta) => {
   const properties = item.get("properties") || new Map();
   const field = properties.get("field");
@@ -88,7 +92,8 @@ const formatRule = (item, config, meta) => {
   const reversedOp = operatorDefinition.reversedOp;
   const revOperatorDefinition = getOperatorConfig(config, reversedOp, field) || {};
   const cardinality = defaultValue(operatorDefinition.cardinality, 1);
-
+  //console.log("formatRule: item->config->meta->properties, fieldDefinition")
+  //console.log([item, config, meta, properties, fieldDefinition])
   //format value
   let valueSrcs = [];
   let valueTypes = [];
@@ -163,6 +168,8 @@ const formatRule = (item, config, meta) => {
   if (isRev) {
     ret = config.settings.sqlFormatReverse(ret, operator, reversedOp, operatorDefinition, revOperatorDefinition);
   }
+  if (fieldDefinition && fieldDefinition.sorroundingTags)
+    ret = fieldDefinition.sorroundingTags+'.begin'+ret+fieldDefinition.sorroundingTags+'.end';
   return ret;
 };
 

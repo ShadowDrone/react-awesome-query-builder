@@ -25,7 +25,7 @@ SqlString.escapeLike = (val, any_start = true, any_end = true, force_to_lower = 
 };
 
 SqlString.wrapIfComplexQuery = (queryItem) => {
-  
+  return queryItem;
   //console.log("query:"+queryItem)
   //console.log(queryItem);
   if (queryItem.startsWith("lower({#") || queryItem.startsWith("{#")){
